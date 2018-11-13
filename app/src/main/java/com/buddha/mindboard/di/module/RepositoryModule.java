@@ -2,7 +2,6 @@ package com.buddha.mindboard.di.module;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
-
 import com.buddha.mindboard.BuildConfig;
 import com.buddha.mindboard.data.api.ApiService;
 import com.buddha.mindboard.data.datasource.LocalDataSource;
@@ -14,18 +13,16 @@ import com.buddha.mindboard.util.NullOnEmptyConverterFactory;
 import com.buddha.mindboard.util.Utils;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Named;
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import javax.inject.Named;
+import javax.inject.Singleton;
+import java.util.concurrent.TimeUnit;
 
 @Module
 public class RepositoryModule {
@@ -123,8 +120,8 @@ public class RepositoryModule {
 
     @Singleton
     @Provides
-    Repository provideRepository(Context context, LocalDataSource localDatasource, RemoteDataSource remoteDatasource) {
-        return new Repository(context, remoteDatasource, localDatasource);
+    Repository provideRepository(LocalDataSource localDatasource, RemoteDataSource remoteDatasource) {
+        return new Repository(remoteDatasource, localDatasource);
     }
 
     @Singleton
@@ -135,7 +132,7 @@ public class RepositoryModule {
 
     @Singleton
     @Provides
-    Utils provideUtils(Context context){
+    Utils provideUtils(Context context) {
         return new Utils(context);
     }
 }

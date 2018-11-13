@@ -15,6 +15,6 @@ public interface DataSource {
 
     interface Greetings{
         Observable<String> greetings();
-        Observable<Response<List<Datum>>> getData();
     }
+    Observable<Response<List<Datum>>> getData();
 }

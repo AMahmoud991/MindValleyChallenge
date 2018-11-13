@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MindBoard.iml" filepath="$PROJECT_DIR$/MindBoard.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mindboardlib/mindboardlib.iml" filepath="$PROJECT_DIR$/mindboardlib/mindboardlib.iml" />
     </modules>
   </component>
 </project>
