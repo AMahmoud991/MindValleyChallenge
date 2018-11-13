@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Mind Board</string>
+    <string name="internet_error">Could not connect to sever, Please check your internet connection or try again
+        later.
+    </string>
+    <string name="error_unable_to_connect_to_the_server_try_again">Something snapped. Please check internet connection
+        and try again.
+    </string>
+    <string name="error_something_went_wrong_try_again">Something went wrong. Please try again later.</string>
+</resources>
