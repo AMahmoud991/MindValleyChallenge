@@ -22,19 +22,19 @@ android {
             applicationId "com.buddha.mindboard.dev"
             buildConfigField 'String', 'PREF_NAME', '"pref_dev"'
             buildConfigField 'String', 'FLAVOR_CODE', '"D"'
-            buildConfigField 'String', 'URL_HOST_API', '"https://api.yourdomain.com"'
+            buildConfigField 'String', 'URL_HOST_API', '"http://pastebin.com"'
         }
         prod {
             applicationId "com.buddha.mindboard"
             buildConfigField 'String', 'PREF_NAME', '"pref_prod"'
             buildConfigField 'String', 'FLAVOR_CODE', '"P"'
-            buildConfigField 'String', 'URL_HOST_API', '"https://api.yourdomain.com"'
+            buildConfigField 'String', 'URL_HOST_API', '"http://pastebin.com"'
         }
         mock {
             applicationId "com.buddha.mindboard.mock"
             buildConfigField 'String', 'PREF_NAME', '"pref_mock"'
             buildConfigField 'String', 'FLAVOR_CODE', '"M"'
-            buildConfigField 'String', 'URL_HOST_API', '"https://api.yourdomain.com"'
+            buildConfigField 'String', 'URL_HOST_API', '"http://pastebin.com"'
         }
     }
     signingConfigs {

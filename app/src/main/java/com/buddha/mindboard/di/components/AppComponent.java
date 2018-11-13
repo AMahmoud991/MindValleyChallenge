@@ -15,7 +15,7 @@ import dagger.android.DaggerApplication;
 import dagger.android.support.AndroidSupportInjectionModule;
 
 /**
- * Created by Buddha Saikia on 06-10-2018.
+ * Created by Buddha Saikia on 13-11-2018.
  */
 
 @Singleton
