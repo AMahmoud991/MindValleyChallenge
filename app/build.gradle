@@ -82,7 +82,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
@@ -94,13 +94,11 @@ dependencies {
     testImplementation "junit:junit:$rootProject.ext.junit"
     androidTestImplementation "com.android.support.test:runner:$rootProject.ext.testRunner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoCore"
-
     implementation "com.google.dagger:dagger:$rootProject.ext.dagger2"
     implementation "com.google.dagger:dagger-android:$rootProject.ext.dagger2"
     kapt "com.google.dagger:dagger-compiler:$rootProject.ext.dagger2"
     kapt "com.google.dagger:dagger-android-processor:$rootProject.ext.dagger2"
     implementation "com.google.dagger:dagger-android-support:$rootProject.ext.dagger2"
-
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxandroid"
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxandroid"
     implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$rxandroidAdapter"
@@ -111,4 +109,5 @@ dependencies {
     implementation "com.facebook.stetho:stetho-okhttp3:$rootProject.ext.stetho"
     androidTestImplementation "com.google.code.findbugs:jsr305:$rootProject.ext.findBugs"
     implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
+    implementation project(':mindboardlib')
 }

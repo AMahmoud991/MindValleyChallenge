@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
 import com.buddha.mindboard.data.repository.Repository;
-import com.buddha.mindboard.module.main.MainViewModel;
+import com.buddha.mindboard.module.home.HomeViewModel;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -22,8 +22,8 @@ public class CustomViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(MainViewModel.class))
-            return (T) new MainViewModel(repository);
+        if (modelClass.isAssignableFrom(HomeViewModel.class))
+            return (T) new HomeViewModel(repository);
         else
             throw new IllegalArgumentException("ViewModel not found!");
     }
