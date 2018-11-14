@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import com.buddha.mindboard.R
 import com.buddha.mindboard.data.model.Datum
+import com.buddha.mindboard.module.details.DetailsActivity
 import com.buddha.mindboard.util.RecyclerViewPagingAdapter
 import com.buddha.mindboardlib.ImageLoader
 
@@ -86,6 +87,7 @@ class AdapterPhoto(private var mContext: Context?) :
     }
 
     override fun addItems(list: List<Datum>?) {
+        mList.clear()
         mList.addAll(list ?: return)
         notifyDataSetChanged()
     }
@@ -103,5 +105,10 @@ class AdapterPhoto(private var mContext: Context?) :
     private inner class PhotoViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val imageView: ImageView = itemView.findViewById(R.id.imageView)
 
+        init {
+            imageView.setOnClickListener {
+                DetailsActivity.start(mContext, mList[adapterPosition])
+            }
+        }
     }
 }

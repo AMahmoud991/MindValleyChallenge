@@ -1,6 +1,7 @@
 package com.buddha.mindboardlib;
 
 import android.content.Context;
+import android.util.Log;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -25,9 +26,10 @@ public class NetworkFileLoader {
             return (T) this;
         }
 
-        public T load(String url) throws IOException {
-            if (url == null) {
-                url = "";
+        public T load(String url) {
+            Log.d("imageUrl", url);
+            if (url == null || url.equals("") || !url.startsWith("http") || !url.startsWith("https")) {
+                throw new IllegalArgumentException("Invalid image url");
             }
             request = new Request.Builder().url(url).build();
             return (T) this;

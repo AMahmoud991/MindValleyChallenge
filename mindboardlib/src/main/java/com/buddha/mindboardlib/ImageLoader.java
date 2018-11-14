@@ -3,6 +3,11 @@ package com.buddha.mindboardlib;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.support.annotation.DrawableRes;
 import android.widget.ImageView;
 import okhttp3.Call;
@@ -79,7 +84,16 @@ public class ImageLoader extends NetworkFileLoader {
                                         activity.runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
+                                                final TransitionDrawable td =
+                                                        new TransitionDrawable(new Drawable[] {
+                                                                new ColorDrawable(Color.TRANSPARENT),
+                                                                new BitmapDrawable(activity.getResources(), bitmap)
+                                                        });
                                                 imageView.setImageBitmap(bitmap);
+                                                imageView.setImageDrawable(td);
+                                                td.startTransition(500);
+
+
                                             }
                                         });
                                     } else {
