@@ -41,9 +41,10 @@ class AdapterPhoto(private var mContext: Context?) :
         val item = mList[position]
         if (holder is PhotoViewHolder) {
             ImageLoader.Builder().from(mContext as? Activity)
-                .load(item.urls?.regular)
+                .load(item.urls?.small)
                 .errorImage(R.drawable.placeholder)
                 .into(holder.imageView)
+                .build()
 
         } else if (holder is ProgressViewHolder) {
             holder.progressBar.isIndeterminate = true

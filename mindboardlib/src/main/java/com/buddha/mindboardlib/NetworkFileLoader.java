@@ -5,17 +5,23 @@ import android.util.Log;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-import java.io.IOException;
-
 public class NetworkFileLoader {
+    public interface ProgressListener {
+        void onRequestStarted();
+
+        void onRequestComplete();
+    }
+
     private OkHttpClient okHttpClient;
     private Request request;
     private Context context;
+    private ProgressListener progressListener;
 
     public static class Builder<T extends Builder<T>> {
         Request request;
         Context context;
         OkHttpClient okHttpClient;
+        ProgressListener progressListener;
 
         public Builder() {
             okHttpClient = new OkHttpClient();
@@ -35,14 +41,20 @@ public class NetworkFileLoader {
             return (T) this;
         }
 
+        public T setProgressListener(ProgressListener progressListener) {
+            this.progressListener = progressListener;
+            return (T) this;
+        }
+
         public NetworkFileLoader build() {
             return new NetworkFileLoader(this);
         }
     }
 
     public NetworkFileLoader(Builder<?> builder) {
-        okHttpClient = builder.okHttpClient;
-        context = builder.context;
-        request = builder.request;
+        this.okHttpClient = builder.okHttpClient;
+        this.context = builder.context;
+        this.request = builder.request;
+        this.progressListener = builder.progressListener;
     }
 }

@@ -25,9 +25,13 @@ public class ImageLoader extends NetworkFileLoader {
     private @DrawableRes
     int errorDrawable;
 
+    private ImageView imageView;
+
+
     public static class Builder extends NetworkFileLoader.Builder<Builder> {
         private @DrawableRes
         int errorDrawable;
+        private ImageView imageView;
 
         public Builder() {
         }
@@ -37,7 +41,12 @@ public class ImageLoader extends NetworkFileLoader {
             return this;
         }
 
-        public void into(final ImageView imageView) {
+        public Builder into(final ImageView imageView) {
+            this.imageView = imageView;
+            return this;
+        }
+
+        public ImageLoader build() {
             if (context == null) {
                 throw new RuntimeException("Context is null");
             }
@@ -54,6 +63,8 @@ public class ImageLoader extends NetworkFileLoader {
                     throw new RuntimeException("Invalid context passed.");
                 }
             } else {
+                if (progressListener != null)
+                    progressListener.onRequestStarted();
                 okHttpClient.newCall(request)
                         .enqueue(new Callback() {
                             @Override
@@ -64,6 +75,8 @@ public class ImageLoader extends NetworkFileLoader {
                                     activity.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
+                                            if (progressListener != null)
+                                                progressListener.onRequestComplete();
                                             imageView.setImageDrawable(activity.getResources().getDrawable(errorDrawable));
                                         }
                                     });
@@ -84,16 +97,16 @@ public class ImageLoader extends NetworkFileLoader {
                                         activity.runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
+                                                if (progressListener != null)
+                                                    progressListener.onRequestComplete();
                                                 final TransitionDrawable td =
-                                                        new TransitionDrawable(new Drawable[] {
+                                                        new TransitionDrawable(new Drawable[]{
                                                                 new ColorDrawable(Color.TRANSPARENT),
                                                                 new BitmapDrawable(activity.getResources(), bitmap)
                                                         });
                                                 imageView.setImageBitmap(bitmap);
                                                 imageView.setImageDrawable(td);
                                                 td.startTransition(500);
-
-
                                             }
                                         });
                                     } else {
@@ -103,16 +116,13 @@ public class ImageLoader extends NetworkFileLoader {
                             }
                         });
             }
-
-        }
-
-        public ImageLoader build() {
             return new ImageLoader(this);
         }
     }
 
     protected ImageLoader(Builder builder) {
         super(builder);
-        errorDrawable = builder.errorDrawable;
+        this.errorDrawable = builder.errorDrawable;
+        this.imageView = builder.imageView;
     }
 }
