@@ -1,13 +1,14 @@
 package com.buddha.mindboardlib;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.support.v4.util.LruCache;
 import android.util.Log;
+import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class NetworkFileLoader {
+import java.util.Objects;
+
+public abstract class NetworkFileLoader {
     public interface ProgressListener {
         void onRequestStarted();
 
@@ -41,17 +42,13 @@ public class NetworkFileLoader {
             if (url == null || url.equals("") || !url.startsWith("http") || !url.startsWith("https")) {
                 throw new IllegalArgumentException("Invalid image url");
             }
-            request = new Request.Builder().url(url).build();
+            request = new Request.Builder().tag(url).url(url).build();
             return (T) this;
         }
 
         public T setProgressListener(ProgressListener progressListener) {
             this.progressListener = progressListener;
             return (T) this;
-        }
-
-        public NetworkFileLoader build() {
-            return new NetworkFileLoader(this);
         }
     }
 
@@ -60,5 +57,22 @@ public class NetworkFileLoader {
         this.context = builder.context;
         this.request = builder.request;
         this.progressListener = builder.progressListener;
+    }
+
+    public void cancelRequest(Request request) {
+        // A call may transition from queue -> running. Remove queued Calls first.
+        for (Call call : okHttpClient.dispatcher().queuedCalls()) {
+            if (Objects.equals(call.request().tag(), request.tag()))
+                call.cancel();
+        }
+        for (Call call : okHttpClient.dispatcher().runningCalls()) {
+            if (Objects.equals(call.request().tag(), request.tag()))
+                call.cancel();
+        }
+        Log.d("Request cancelled", request.tag() == null ? "" : request.tag().toString());
+    }
+
+    public Request getRequest() {
+        return request;
     }
 }

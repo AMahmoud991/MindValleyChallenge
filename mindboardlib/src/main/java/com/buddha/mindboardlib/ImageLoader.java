@@ -13,32 +13,13 @@ import android.widget.ImageView;
 import com.buddha.mindboardlib.lrucache.LruMemCache;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class ImageLoader extends NetworkFileLoader {
-    /*private static int cacheSize=1024*1024*8;
-    private static LruCache<String, Bitmap> lruMemCache = new LruCache<String, Bitmap>(cacheSize) {
-        @Override
-        protected int sizeOf(@NonNull String key, @NonNull Bitmap value) {
-            return value.getByteCount() / 1024;
-        }
-    };
-
-    public static void addItemToLruMemCache(String key, Bitmap value) {
-        if (key == null || value == null) return;
-
-        if (getBitmapFromLruMemCache(key) == null) {
-            lruMemCache.put(key, value);
-        }
-    }
-
-    public static Bitmap getBitmapFromLruMemCache(String key) {
-        return lruMemCache.get(key);
-    }*/
-
     private @DrawableRes
     int errorDrawable;
 

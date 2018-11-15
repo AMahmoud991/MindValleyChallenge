@@ -7,10 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.buddha.mindboard.R
 import com.buddha.mindboard.data.model.Datum
 import com.buddha.mindboard.module.base.DaggerBaseFragment
-import com.buddha.mindboard.util.ActivityUtils
 import com.buddha.mindboard.util.Config
 import com.buddha.mindboard.util.ErrorMessageFactory
 import com.buddha.mindboard.util.Utils
@@ -20,12 +20,15 @@ import javax.inject.Inject
 
 class DetailsFragment : DaggerBaseFragment() {
 
-    @Inject lateinit var errorMessageFactory:ErrorMessageFactory
+    @Inject
+    lateinit var errorMessageFactory: ErrorMessageFactory
 
-    @Inject lateinit var utils: Utils
+    @Inject
+    lateinit var utils: Utils
 
     private var imageView: ImageView? = null
     private var imageLoadingProgressBar: ContentLoadingProgressBar? = null
+    private var lblUserName: TextView? = null
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_details
@@ -38,12 +41,14 @@ class DetailsFragment : DaggerBaseFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         imageView = rootView?.findViewById(R.id.imageView)
         imageLoadingProgressBar = rootView?.findViewById(R.id.progressBar)
+        lblUserName = rootView?.findViewById(R.id.lblUserName)
         return rootView
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val datum: Datum? = arguments?.getParcelable(Config.Extras.DATUM)
+        lblUserName?.text = datum?.user?.name
         ImageLoader.Builder()
             .from(activity)
             .load(datum?.urls?.full)
@@ -67,6 +72,14 @@ class DetailsFragment : DaggerBaseFragment() {
             })
             .into(imageView)
             .build()
+
+        /**
+         * Uncomment code to cancel request after 200ms
+         */
+
+        /*Handler().postDelayed({
+            imageLoader.cancelRequest(imageLoader.request)
+        },200)*/
     }
 
     companion object {
