@@ -2,14 +2,31 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackgroundBorderless">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/placeholder"
-        android:scaleType="centerCrop" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder" />
+
+        <TextView
+            android:id="@+id/lblUserName"
+            style="@style/styleUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="end"
+            android:padding="8dp"
+            tools:text="Buddha Saikia" />
+    </FrameLayout>
+
 </android.support.v7.widget.CardView>

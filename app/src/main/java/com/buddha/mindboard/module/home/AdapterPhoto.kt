@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import com.buddha.mindboard.R
 import com.buddha.mindboard.data.model.Datum
 import com.buddha.mindboard.module.details.DetailsActivity
@@ -40,8 +41,9 @@ class AdapterPhoto(private var mContext: Context?) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = mList[position]
         if (holder is PhotoViewHolder) {
+            holder.lblUserName.text=item.user?.name
             ImageLoader.Builder().from(mContext as? Activity)
-                .load(item.urls?.small)
+                .load(item.user?.profileImage?.large)
                 .errorImage(R.drawable.placeholder)
                 .into(holder.imageView)
                 .build()
@@ -100,12 +102,11 @@ class AdapterPhoto(private var mContext: Context?) :
 
     inner class ProgressViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var progressBar: ProgressBar = itemView.findViewById(R.id.progressBar)
-
     }
 
     private inner class PhotoViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val imageView: ImageView = itemView.findViewById(R.id.imageView)
-
+        internal val lblUserName:TextView=itemView.findViewById(R.id.lblUserName)
         init {
             imageView.setOnClickListener {
                 DetailsActivity.start(mContext, mList[adapterPosition])

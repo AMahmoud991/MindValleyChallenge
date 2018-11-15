@@ -10,6 +10,7 @@ import android.view.MenuItem
 import com.buddha.mindboard.R
 import com.buddha.mindboard.module.base.DaggerBaseActivity
 import com.buddha.mindboard.util.ActivityUtils
+import com.buddha.mindboardlib.lrucache.LruMemCache
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 

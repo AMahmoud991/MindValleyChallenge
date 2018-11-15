@@ -10,17 +10,34 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.support.annotation.DrawableRes;
 import android.widget.ImageView;
+import com.buddha.mindboardlib.lrucache.LruMemCache;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 
 public class ImageLoader extends NetworkFileLoader {
-    private static HashMap<String, Bitmap> cache = new HashMap<>();
+    /*private static int cacheSize=1024*1024*8;
+    private static LruCache<String, Bitmap> lruMemCache = new LruCache<String, Bitmap>(cacheSize) {
+        @Override
+        protected int sizeOf(@NonNull String key, @NonNull Bitmap value) {
+            return value.getByteCount() / 1024;
+        }
+    };
 
+    public static void addItemToLruMemCache(String key, Bitmap value) {
+        if (key == null || value == null) return;
+
+        if (getBitmapFromLruMemCache(key) == null) {
+            lruMemCache.put(key, value);
+        }
+    }
+
+    public static Bitmap getBitmapFromLruMemCache(String key) {
+        return lruMemCache.get(key);
+    }*/
 
     private @DrawableRes
     int errorDrawable;
@@ -48,15 +65,16 @@ public class ImageLoader extends NetworkFileLoader {
 
         public ImageLoader build() {
             if (context == null) {
-                throw new RuntimeException("Context is null");
+                throw new RuntimeException("Context can not be null");
             }
-            if (cache.containsKey(request.url().toString())) {
+            final Bitmap bitmap = LruMemCache.getInstance().getItem(request.url().toString());
+            if (bitmap != null) {
                 if (context instanceof Activity) {
                     final Activity activity = ((Activity) context);
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            imageView.setImageBitmap(cache.get(request.url().toString()));
+                            imageView.setImageBitmap(bitmap);
                         }
                     });
                 } else {
@@ -68,7 +86,7 @@ public class ImageLoader extends NetworkFileLoader {
                 okHttpClient.newCall(request)
                         .enqueue(new Callback() {
                             @Override
-                            public void onFailure(Call call, IOException e) {
+                            public void onFailure(Call call, final IOException e) {
                                 e.printStackTrace();
                                 if (context instanceof Activity) {
                                     final Activity activity = ((Activity) context);
@@ -76,7 +94,7 @@ public class ImageLoader extends NetworkFileLoader {
                                         @Override
                                         public void run() {
                                             if (progressListener != null)
-                                                progressListener.onRequestComplete();
+                                                progressListener.onError(e);
                                             imageView.setImageDrawable(activity.getResources().getDrawable(errorDrawable));
                                         }
                                     });
@@ -91,7 +109,7 @@ public class ImageLoader extends NetworkFileLoader {
                                 if (response.body() != null) {
                                     inputStream = response.body().byteStream();
                                     final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                                    cache.put(request.url().toString(), bitmap);
+                                    LruMemCache.getInstance().addItem(request.url().toString(), bitmap);
                                     if (context instanceof Activity) {
                                         final Activity activity = ((Activity) context);
                                         activity.runOnUiThread(new Runnable() {

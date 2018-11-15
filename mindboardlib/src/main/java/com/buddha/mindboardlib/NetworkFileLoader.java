@@ -1,6 +1,8 @@
 package com.buddha.mindboardlib;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.v4.util.LruCache;
 import android.util.Log;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -10,6 +12,8 @@ public class NetworkFileLoader {
         void onRequestStarted();
 
         void onRequestComplete();
+
+        void onError(Throwable t);
     }
 
     private OkHttpClient okHttpClient;

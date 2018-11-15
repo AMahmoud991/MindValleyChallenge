@@ -10,11 +10,19 @@ import android.widget.ImageView
 import com.buddha.mindboard.R
 import com.buddha.mindboard.data.model.Datum
 import com.buddha.mindboard.module.base.DaggerBaseFragment
+import com.buddha.mindboard.util.ActivityUtils
 import com.buddha.mindboard.util.Config
+import com.buddha.mindboard.util.ErrorMessageFactory
+import com.buddha.mindboard.util.Utils
 import com.buddha.mindboardlib.ImageLoader
 import com.buddha.mindboardlib.NetworkFileLoader.ProgressListener
+import javax.inject.Inject
 
 class DetailsFragment : DaggerBaseFragment() {
+
+    @Inject lateinit var errorMessageFactory:ErrorMessageFactory
+
+    @Inject lateinit var utils: Utils
 
     private var imageView: ImageView? = null
     private var imageLoadingProgressBar: ContentLoadingProgressBar? = null
@@ -41,6 +49,12 @@ class DetailsFragment : DaggerBaseFragment() {
             .load(datum?.urls?.full)
             .errorImage(R.drawable.placeholder)
             .setProgressListener(object : ProgressListener {
+                override fun onError(t: Throwable?) {
+                    utils.showErrorDialog(errorMessageFactory.getError(t))
+                    imageLoadingProgressBar?.hide()
+                    imageLoadingProgressBar?.visibility = View.GONE
+                }
+
                 override fun onRequestStarted() {
                     imageLoadingProgressBar?.show()
                     imageLoadingProgressBar?.visibility = View.VISIBLE

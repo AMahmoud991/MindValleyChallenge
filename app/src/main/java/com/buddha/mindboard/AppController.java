@@ -1,6 +1,7 @@
 package com.buddha.mindboard;
 
 import com.buddha.mindboard.di.components.DaggerAppComponent;
+import com.buddha.mindboardlib.lrucache.LruMemCache;
 import com.facebook.stetho.Stetho;
 
 import dagger.android.AndroidInjector;
@@ -16,6 +17,7 @@ public class AppController extends DaggerApplication {
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this);
         }
+        LruMemCache.getInstance().initCache(8*1024*1024);
     }
 
     public static synchronized AppController getInstance() {
