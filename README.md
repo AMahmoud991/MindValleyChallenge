@@ -1,30 +1,28 @@
-###### This is a sample project to find most popular tags in a paragraph and display them in descending order.
-
-Download [apk](https://github.com/buddhasaikia/3FramesLabChallenge/blob/master/apk/MostPopularTags_BuddhaSaikia_20181116.apk)
+Download [apk](https://github.com/buddhasaikia/MindValleyChallenge/blob/master/apk/MindValleyChallengeBuddhaS-0.1.0.225-20181116-prod-debug.apk)
 ## Screenshots
 
-![](https://github.com/buddhasaikia/3FramesLabChallenge/blob/master/screenshots/device-2018-11-16-151815.png?raw=true)
+![](https://github.com/buddhasaikia/MindValleyChallenge/blob/master/screenshots/device-2018-11-16-183633.png?raw=true)
 
-![](https://github.com/buddhasaikia/3FramesLabChallenge/blob/master/screenshots/device-2018-11-16-151844.png?raw=true)
+![](https://github.com/buddhasaikia/MindValleyChallenge/blob/master/screenshots/device-2018-11-16-190251.png?raw=true)
 
-## Details
+## Details of sample project
 
-Language- **Kotlin**
+Language- **Mix of Kotlin and Java**
 
 Design patters- **MVVM**
 
 Reactive extension- **RxJava2**
 
-### Package structure
+Dependency Injection- **Dagger2**
 
-```
-com.buddha.a3frameslabchallengeapp
-|-config
-|-data
-|-home
-  |-view
-  |-viewmodel
-|-utils
-```
+Image library- **mindboardlib**
+
+Network library- **Retrofit2**
+
+UI component- **RecyclerView, FloatingActionButton**
+
+Package structure- **Group by feature**
+
+
 ### A bit of explanation
-Enter a paragraph in _EditText_ and click **PROCESS** button. It will trigger and execute the task in android [computation scheduler](http://reactivex.io/RxJava/javadoc/rx/schedulers/Schedulers.html#computation--) thread. During processing it should show a **progressbar**(if task takes longer time). Once finished, it will display the sorted list in a **RecyclerView**.
+To initialize cache menory add the following line ```LruMemCache.getInstance().initCache(size);``` in your Application class.

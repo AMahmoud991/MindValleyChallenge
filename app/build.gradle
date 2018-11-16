@@ -61,7 +61,7 @@ android {
             targetSdkVersion rootProject.ext.targetSdkVersion
             versionCode code
             versionName "0.1.0"
-            archivesBaseName = "ProjectName-$versionName" + "." + versionCode + "-" + getDate()
+            archivesBaseName = "MindValleyChallengeBuddhaS-$versionName" + "." + versionCode + "-" + getDate()
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         }
     } else {
