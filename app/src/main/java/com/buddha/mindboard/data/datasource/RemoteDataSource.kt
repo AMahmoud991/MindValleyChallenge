@@ -13,14 +13,9 @@ import retrofit2.Response
  * Created by Buddha Saikia on 13-11-2018.
  */
 
-class RemoteDataSource(private val apiService: ApiService) : BaseDataSource(), DataSource.Greetings, DataSource {
-
-    override fun greetings(): Observable<String> {
-        return Observable.just("Greetings from API sample")
-            .compose(this.applySchedulersIO())
-    }
+class RemoteDataSource(private val apiService: ApiService) : BaseDataSource(), DataSource {
 
     override fun getData(): Observable<Response<List<Datum>>>? {
-        return apiService.data
+        return apiService.data.compose(applySchedulersIO())
     }
 }

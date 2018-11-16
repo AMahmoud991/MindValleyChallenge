@@ -25,6 +25,6 @@ constructor(
     private val localDataSource: LocalDataSource = checkNotNull(localDataSource)
 
     override fun getData(): Observable<Response<List<Datum>>>? {
-        return remoteDataSource.getData()?.compose(this.applySchedulersIO())
+        return remoteDataSource.getData()
     }
 }
