@@ -33,5 +33,6 @@ Language- **Java**
 Design patterns used- **Singleton pattern, Builder pattern**
 
 ### A bit of explanation
-**How to initialize cache size**
+**How to initialize cache size?**
+
 Add the following line ```LruMemCache.getInstance().initCache(size);``` in ```onCreate``` method of your Application class.
