@@ -26,19 +26,38 @@
                 android:id="@+id/likeButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:clickable="true"
-                android:src="@drawable/ic_like_empty_red_24dp"
                 android:focusable="true"
-                android:foreground="?attr/selectableItemBackgroundBorderless" />
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:padding="4dp"
+                android:src="@drawable/ic_like_empty_red_24dp" />
+
+            <TextView
+                android:id="@+id/lblTotalLikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/likeButton"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:src="@drawable/ic_like_empty_red_24dp"
+                android:textColor="@android:color/white"
+                tools:text="12" />
 
             <TextView
                 android:id="@+id/lblUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:padding="8dp"
                 android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/lblTotalLikes"
+                android:gravity="end"
+                android:padding="8dp"
                 android:textColor="@android:color/white"
                 tools:text="Buddha Saikia" />
         </RelativeLayout>

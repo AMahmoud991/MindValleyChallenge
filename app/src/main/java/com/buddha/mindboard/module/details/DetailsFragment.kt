@@ -29,6 +29,8 @@ class DetailsFragment : DaggerBaseFragment() {
     private var imageView: ImageView? = null
     private var imageLoadingProgressBar: ContentLoadingProgressBar? = null
     private var lblUserName: TextView? = null
+    private var lblTotalLikes: TextView? = null
+    private var likeButton:ImageView?=null
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_details
@@ -41,7 +43,9 @@ class DetailsFragment : DaggerBaseFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         imageView = rootView?.findViewById(R.id.imageView)
         imageLoadingProgressBar = rootView?.findViewById(R.id.progressBar)
+        lblTotalLikes=rootView?.findViewById(R.id.lblTotalLikes)
         lblUserName = rootView?.findViewById(R.id.lblUserName)
+        likeButton=rootView?.findViewById(R.id.likeButton)
         return rootView
     }
 
@@ -49,6 +53,12 @@ class DetailsFragment : DaggerBaseFragment() {
         super.onActivityCreated(savedInstanceState)
         val datum: Datum? = arguments?.getParcelable(Config.Extras.DATUM)
         lblUserName?.text = datum?.user?.name
+        lblTotalLikes?.text=datum?.likes?.toString()
+        if(datum?.likedByUser==true){
+            likeButton?.setImageResource(R.drawable.ic_like_filled_red_24dp)
+        }else{
+            likeButton?.setImageResource(R.drawable.ic_like_empty_red_24dp)
+        }
         ImageLoader.Builder()
             .from(activity)
             .load(datum?.urls?.full)

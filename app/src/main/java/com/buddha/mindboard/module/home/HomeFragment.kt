@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.buddha.mindboard.R
 import com.buddha.mindboard.data.model.Datum
 import com.buddha.mindboard.di.scope.PerActivity
