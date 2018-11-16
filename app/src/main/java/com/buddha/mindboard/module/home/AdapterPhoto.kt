@@ -108,7 +108,7 @@ class AdapterPhoto(private var mContext: Context?) :
         internal val imageView: ImageView = itemView.findViewById(R.id.imageView)
         internal val lblUserName:TextView=itemView.findViewById(R.id.lblUserName)
         init {
-            imageView.setOnClickListener {
+            itemView.setOnClickListener {
                 DetailsActivity.start(mContext, mList[adapterPosition])
             }
         }
