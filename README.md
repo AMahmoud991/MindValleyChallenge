@@ -23,14 +23,15 @@ UI component- **RecyclerView, FloatingActionButton**
 
 Package structure- **Group by feature**
 
-##Architecture diagram
+## Architecture diagram
 ![](https://github.com/buddhasaikia/MindValleyChallenge/blob/master/diagram/mindvalley_challenge_arch_diagram.png?raw=true)
 
-##Details of mindboardlib library
+## Details of mindboardlib library
 
 Language- **Java**
 
 Design patterns used- **Singleton pattern, Builder pattern**
 
 ### A bit of explanation
-To initialize cache menory add the following line ```LruMemCache.getInstance().initCache(size);``` in your Application class.
+**How to initialize cache size**
+Add the following line ```LruMemCache.getInstance().initCache(size);``` in ```onCreate``` method of your Application class.
